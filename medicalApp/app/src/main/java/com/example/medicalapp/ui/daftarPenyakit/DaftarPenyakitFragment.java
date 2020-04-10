@@ -1,4 +1,4 @@
-package com.example.medicalapp.ui.dashboard;
+package com.example.medicalapp.ui.daftarPenyakit;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.medicalapp.R;
 
-public class DashboardFragment extends Fragment {
+public class DaftarPenyakitFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
+    private DaftarPenyakitViewModel daftarPenyakitViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
+        daftarPenyakitViewModel =
+                ViewModelProviders.of(this).get(DaftarPenyakitViewModel.class);
         View root = inflater.inflate(R.layout.fragment_daftar_penyakit, container, false);
         final TextView textView = root.findViewById(R.id.text_dashboard);
-        dashboardViewModel.getText().observe(this, new Observer<String>() {
+        daftarPenyakitViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

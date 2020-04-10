@@ -1,4 +1,4 @@
-package com.example.medicalapp.ui.notifications;
+package com.example.medicalapp.ui.rumahSakit;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,17 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.medicalapp.R;
 
-public class NotificationsFragment extends Fragment {
+public class RumahSakitFragment extends Fragment {
 
-    private NotificationsViewModel notificationsViewModel;
+    private RumahSakitViewModel rumahSakitViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        notificationsViewModel =
-                ViewModelProviders.of(this).get(NotificationsViewModel.class);
+        rumahSakitViewModel =
+                ViewModelProviders.of(this).get(RumahSakitViewModel.class);
         View root = inflater.inflate(R.layout.fragment_rumah_sakit, container, false);
         final TextView textView = root.findViewById(R.id.text_notifications);
-        notificationsViewModel.getText().observe(this, new Observer<String>() {
+        rumahSakitViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
