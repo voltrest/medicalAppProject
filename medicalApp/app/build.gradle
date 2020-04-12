@@ -34,6 +34,6 @@ dependencies {
 
     //winston's added implementation
     implementation 'com.mcxiaoke.volley:library:1.0.19'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
     implementation 'androidx.cardview:cardview:1.0.0'
 }
