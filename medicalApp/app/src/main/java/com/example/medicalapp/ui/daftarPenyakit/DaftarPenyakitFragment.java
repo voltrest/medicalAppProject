@@ -79,7 +79,7 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
 //        }
 //        );
         listView = root.findViewById(R.id.list_penyakit);
-        getJSON("http://192.168.1.21/get_daftar_penyakit2.php");
+        getJSON("http://192.168.1.21/get_daftar_penyakit.php");
 
         mRecyclerView = root.findViewById(R.id.recycler_penyakit);
 
@@ -126,14 +126,14 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
                 super.onPostExecute(s);
 //                Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
                 try {
-                    Log.i("tag", "onPostExecute: loadIntoListView attempting");
-                    loadIntoListView(s);
-                    Log.i("tag", "onPostExecute: loadIntoListView succeeded");
+                    Log.i("tag", "onPostExecute: loadIntoRecyclerView attempting");
+                    loadIntoRecyclerView(s);
+                    Log.i("tag", "onPostExecute: loadIntoRecyclerView succeeded");
                     for (int i = 0; i < mDaftarPenyakit.size(); i++){
                         Log.i("tag", mDaftarPenyakit.get(i).getNamaPenyakit());
                     }
                 } catch (JSONException e) {
-                    Log.i("tag", "onPostExecute: loadIntoListView failed");
+                    Log.i("tag", "onPostExecute: loadIntoRecyclerView failed");
                     e.printStackTrace();
                 }
             }
@@ -174,7 +174,7 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
         getJSON.execute();
     }
 
-    private void loadIntoListView(String json) throws JSONException {
+    private void loadIntoRecyclerView(String json) throws JSONException {
         //creating a json array from the json string
         JSONArray jsonArray = new JSONArray(json);
         //creating a string array for listview
@@ -189,18 +189,8 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
             mDaftarPenyakit.add(new Penyakit(obj.getString("id_penyakit"),
                     obj.getString("nama_penyakit"),
                     obj.getString("penjelasan_penyakit")));
-            mDaftarPenyakitAdapter.notifyDataSetChanged();
         }
-
-        //the array adapter to load data into list
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.daftar_penyakit_list_item, penyakitArray);
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), R.layout.daftar_penyakit_list_item, penyakitArray);
-
-        //attaching adapter to listview
-//        listView.setAdapter(arrayAdapter);
-
-//        mAdapter = new DaftarPenyakitAdapter(daftarPenyakit);
-//        mRecyclerView.setAdapter(mAdapter);
+        mDaftarPenyakitAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -13,19 +13,62 @@ import com.example.medicalapp.R;
 
 import java.util.ArrayList;
 
-public class DaftarPenyakitAdapter extends RecyclerView.Adapter<DaftarPenyakitAdapter.MyViewHolder> {
-//    private String[] mDataset;
-    private ArrayList<Penyakit> mDaftarPenyakit = new ArrayList<>();
+//public class DaftarPenyakitAdapter extends RecyclerView.Adapter<DaftarPenyakitAdapter.MyViewHolder> {
+public class DaftarPenyakitAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private ArrayList<Penyakit> mDaftarPenyakit;
     private OnPenyakitListener mOnPenyakitListener;
+
+    private static final int HEADER_VIEW = 0;
+    private static final int ITEM_VIEW = 1;
+
+    // Provide a suitable constructor (depends on the kind of dataset)
+    public DaftarPenyakitAdapter(ArrayList<Penyakit> daftarPenyakit, OnPenyakitListener onPenyakitListener) {
+        this.mDaftarPenyakit = daftarPenyakit;
+        this.mOnPenyakitListener = onPenyakitListener;
+    }
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+//    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+//        OnPenyakitListener onPenyakitListener;
+//        public MyViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            this.onPenyakitListener = onPenyakitListener;
+//        }
+//
+//        @Override
+//        public void onClick(View v) {
+//            onPenyakitListener.onPenyakitClick(getAdapterPosition());
+//        }
+//    }
+
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        // each data item is just a string in this case
+        public TextView huruf;
+        public TextView namaPenyakit;
+        OnPenyakitListener onPenyakitListener;
+        public HeaderViewHolder(@NonNull View headerView, OnPenyakitListener onPenyakitListener) {
+            super(headerView);
+            huruf = headerView.findViewById(R.id.huruf);
+            namaPenyakit = headerView.findViewById(R.id.nama_penyakit);
+            this.onPenyakitListener = onPenyakitListener;
+
+            headerView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onPenyakitListener.onPenyakitClick(getAdapterPosition());
+        }
+    }
+
+    public static class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // each data item is just a string in this case
         public TextView namaPenyakit;
         OnPenyakitListener onPenyakitListener;
-        public MyViewHolder(@NonNull View itemView, OnPenyakitListener onPenyakitListener) {
+        public ItemViewHolder(@NonNull View itemView, OnPenyakitListener onPenyakitListener) {
             super(itemView);
             namaPenyakit = itemView.findViewById(R.id.nama_penyakit);
             this.onPenyakitListener = onPenyakitListener;
@@ -39,29 +82,51 @@ public class DaftarPenyakitAdapter extends RecyclerView.Adapter<DaftarPenyakitAd
         }
     }
 
-    // Provide a suitable constructor (depends on the kind of dataset)
-//    public DaftarPenyakitAdapter(String[] myDataset) {
-//        mDataset = myDataset;
-//    }
-    public DaftarPenyakitAdapter(ArrayList<Penyakit> daftarPenyakit, OnPenyakitListener onPenyakitListener) {
-        this.mDaftarPenyakit = daftarPenyakit;
-        this.mOnPenyakitListener = onPenyakitListener;
+    @Override
+    public int getItemViewType(int position) {
+//        return super.getItemViewType(position);
+        if (position == 0){
+            return HEADER_VIEW;
+        } else if (mDaftarPenyakit.get(position).getNamaPenyakit().charAt(0) != mDaftarPenyakit.get(position - 1).getNamaPenyakit().charAt(0)){
+            return HEADER_VIEW;
+        } else {
+            return ITEM_VIEW;
+        }
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public DaftarPenyakitAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.daftar_penyakit_list_item, parent, false);
-        return new MyViewHolder(view, mOnPenyakitListener);
+        View view;
+        if (viewType == HEADER_VIEW) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.daftar_penyakit_list_header, parent, false);
+            return new HeaderViewHolder(view, mOnPenyakitListener);
+        } else {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.daftar_penyakit_list_item, parent, false);;
+            return new ItemViewHolder(view, mOnPenyakitListener);
+        }
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+//    @Override
+//    public void onBindViewHolder(MyViewHolder viewHolder, int position) {
+//        // - get element from your dataset at this position
+//        // - replace the contents of the view with that element
+//        viewHolder.namaPenyakit.setText(mDaftarPenyakit.get(position).getNamaPenyakit());
+//    }
     @Override
-    public void onBindViewHolder(MyViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        viewHolder.namaPenyakit.setText(mDaftarPenyakit.get(position).getNamaPenyakit());
+        if (getItemViewType(position) == HEADER_VIEW){
+            HeaderViewHolder headerViewHolder = (HeaderViewHolder) viewHolder;
+            headerViewHolder.huruf.setText(mDaftarPenyakit.get(position).getNamaPenyakit().substring(0, 1));
+            headerViewHolder.namaPenyakit.setText(mDaftarPenyakit.get(position).getNamaPenyakit());
+        } else {
+            ItemViewHolder itemViewHolder = (ItemViewHolder) viewHolder;
+            itemViewHolder.namaPenyakit.setText(mDaftarPenyakit.get(position).getNamaPenyakit());
+        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
