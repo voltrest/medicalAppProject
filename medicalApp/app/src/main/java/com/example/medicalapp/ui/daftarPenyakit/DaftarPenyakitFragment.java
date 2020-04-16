@@ -9,17 +9,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.medicalapp.Adapters.DaftarPenyakitAdapter;
 import com.example.medicalapp.Models.Penyakit;
 import com.example.medicalapp.R;
+import com.example.medicalapp.ui.daftarPenyakit.DetailPenyakit.DetailPenyakitActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,13 +41,10 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
     private Activity mActivity;
 
     //UI Components
-    ListView listView;
     private RecyclerView mRecyclerView;
-//    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
     //Variables
-    String[] daftarPenyakit;
     private ArrayList<Penyakit> mDaftarPenyakit = new ArrayList<>();
     private DaftarPenyakitAdapter mDaftarPenyakitAdapter;
 
@@ -55,40 +55,31 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
         if (context instanceof Activity){
             mActivity =(Activity) context;
         }
-        Log.i("tag", "onAttach completed");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mActivity = null;
-        Log.i("tag", "onDetach completed");
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        daftarPenyakitViewModel =
-                ViewModelProviders.of(this).get(DaftarPenyakitViewModel.class);
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        getJSON("http://192.168.1.21/get_daftar_penyakit.php");
+//
+//    }
+
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        daftarPenyakitViewModel = ViewModelProviders.of(this).get(DaftarPenyakitViewModel.class);
         View root = inflater.inflate(R.layout.fragment_daftar_penyakit, container, false);
-//        final TextView textView = root.findViewById(R.id.text_dashboard);
-//        daftarPenyakitViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        }
-//        );
-        listView = root.findViewById(R.id.list_penyakit);
-        getJSON("http://192.168.1.21/get_daftar_penyakit.php");
-
         mRecyclerView = root.findViewById(R.id.recycler_penyakit);
-
         initRecyclerView();
-        //insertData();
-//        mRecyclerView.setLayoutManager(mLayoutManager);
-//        mAdapter = new DaftarPenyakitAdapter();
-//        mRecyclerView.setAdapter(mAdapter);
 
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+
+        getJSON("http://192.168.1.21/get_daftar_penyakit.php");
         return root;
     }
 
@@ -126,14 +117,12 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
                 super.onPostExecute(s);
 //                Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
                 try {
-                    Log.i("tag", "onPostExecute: loadIntoRecyclerView attempting");
                     loadIntoRecyclerView(s);
-                    Log.i("tag", "onPostExecute: loadIntoRecyclerView succeeded");
                     for (int i = 0; i < mDaftarPenyakit.size(); i++){
                         Log.i("tag", mDaftarPenyakit.get(i).getNamaPenyakit());
+                        Log.i("tag", "image: " + mDaftarPenyakit.get(i).getImage());
                     }
                 } catch (JSONException e) {
-                    Log.i("tag", "onPostExecute: loadIntoRecyclerView failed");
                     e.printStackTrace();
                 }
             }
@@ -177,25 +166,30 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
     private void loadIntoRecyclerView(String json) throws JSONException {
         //creating a json array from the json string
         JSONArray jsonArray = new JSONArray(json);
-        //creating a string array for listview
-        daftarPenyakit = new String[jsonArray.length()];
+        //tempChar keeps the first letter of the previous disease
+        char tempChar = '0';
         //looping through all the elements in json array
         for (int i = 0; i < jsonArray.length(); i++) {
             //getting json object from the json array
             JSONObject obj = jsonArray.getJSONObject(i);
-            //getting the name from the json object and putting it inside string array
-            daftarPenyakit[i] = obj.getString("nama_penyakit");
-
+            //Add a header to the list if it's a new letter
+            if (obj.getString("nama_penyakit").charAt(0) != tempChar){
+                mDaftarPenyakit.add(new Penyakit("", obj.getString("nama_penyakit").substring(0, 1), "", "", true));
+            }
             mDaftarPenyakit.add(new Penyakit(obj.getString("id_penyakit"),
                     obj.getString("nama_penyakit"),
-                    obj.getString("penjelasan_penyakit")));
+                    obj.getString("ringkasan"),
+                    obj.getString("image"),
+                    false));
+
+            tempChar = obj.getString("nama_penyakit").charAt(0);
         }
         mDaftarPenyakitAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onPenyakitClick(int position) {
-        Intent intent = new Intent(getActivity(), PenyakitActivity.class);
+        Intent intent = new Intent(getActivity(), DetailPenyakitActivity.class);
         intent.putExtra("penyakit_terpilih", mDaftarPenyakit.get(position));
         startActivity(intent);
     }

@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.daftarPenyakit.PenyakitActivity"></activity>
+        <activity android:name=".ui.daftarPenyakit.DetailPenyakit.DetailPenyakitActivity"></activity>
 
         <uses-library
             android:name="org.apache.http.legacy"

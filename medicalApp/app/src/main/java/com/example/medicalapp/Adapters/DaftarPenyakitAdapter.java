@@ -31,37 +31,14 @@ public class DaftarPenyakitAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     // Complex data items may need more than one view per item, and
     // you provide access to all the views for a data item in a view holder
 
-//    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-//        OnPenyakitListener onPenyakitListener;
-//        public MyViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//            this.onPenyakitListener = onPenyakitListener;
-//        }
-//
-//        @Override
-//        public void onClick(View v) {
-//            onPenyakitListener.onPenyakitClick(getAdapterPosition());
-//        }
-//    }
-
-    public static class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView huruf;
-        public TextView namaPenyakit;
-        OnPenyakitListener onPenyakitListener;
         public HeaderViewHolder(@NonNull View headerView, OnPenyakitListener onPenyakitListener) {
             super(headerView);
             huruf = headerView.findViewById(R.id.huruf);
-            namaPenyakit = headerView.findViewById(R.id.nama_penyakit);
-            this.onPenyakitListener = onPenyakitListener;
-
-            headerView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-            onPenyakitListener.onPenyakitClick(getAdapterPosition());
-        }
     }
 
     public static class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -84,10 +61,7 @@ public class DaftarPenyakitAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public int getItemViewType(int position) {
-//        return super.getItemViewType(position);
-        if (position == 0){
-            return HEADER_VIEW;
-        } else if (mDaftarPenyakit.get(position).getNamaPenyakit().charAt(0) != mDaftarPenyakit.get(position - 1).getNamaPenyakit().charAt(0)){
+        if (mDaftarPenyakit.get(position).isHeader()){
             return HEADER_VIEW;
         } else {
             return ITEM_VIEW;
@@ -109,20 +83,13 @@ public class DaftarPenyakitAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     // Replace the contents of a view (invoked by the layout manager)
-//    @Override
-//    public void onBindViewHolder(MyViewHolder viewHolder, int position) {
-//        // - get element from your dataset at this position
-//        // - replace the contents of the view with that element
-//        viewHolder.namaPenyakit.setText(mDaftarPenyakit.get(position).getNamaPenyakit());
-//    }
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         if (getItemViewType(position) == HEADER_VIEW){
             HeaderViewHolder headerViewHolder = (HeaderViewHolder) viewHolder;
-            headerViewHolder.huruf.setText(mDaftarPenyakit.get(position).getNamaPenyakit().substring(0, 1));
-            headerViewHolder.namaPenyakit.setText(mDaftarPenyakit.get(position).getNamaPenyakit());
+            headerViewHolder.huruf.setText(mDaftarPenyakit.get(position).getNamaPenyakit());
         } else {
             ItemViewHolder itemViewHolder = (ItemViewHolder) viewHolder;
             itemViewHolder.namaPenyakit.setText(mDaftarPenyakit.get(position).getNamaPenyakit());

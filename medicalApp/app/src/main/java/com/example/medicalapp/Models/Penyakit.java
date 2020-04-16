@@ -6,12 +6,16 @@ import android.os.Parcelable;
 public class Penyakit implements Parcelable {
     private String IDPenyakit;
     private String namaPenyakit;
-    private String penjelasanPenyakit;
+    private String ringkasan;
+    private String image;
+    private boolean header;
 
-    public Penyakit(String IDPenyakit, String namaPenyakit, String penjelasanPenyakit) {
+    public Penyakit(String IDPenyakit, String namaPenyakit, String ringkasan, String image, boolean header) {
         this.IDPenyakit = IDPenyakit;
         this.namaPenyakit = namaPenyakit;
-        this.penjelasanPenyakit = penjelasanPenyakit;
+        this.ringkasan = ringkasan;
+        this.image = image;
+        this.header = header;
     }
 
     public Penyakit() {
@@ -20,7 +24,8 @@ public class Penyakit implements Parcelable {
     protected Penyakit(Parcel in) {
         IDPenyakit = in.readString();
         namaPenyakit = in.readString();
-        penjelasanPenyakit = in.readString();
+        ringkasan = in.readString();
+        image = in.readString();
     }
 
     public static final Creator<Penyakit> CREATOR = new Creator<Penyakit>() {
@@ -47,12 +52,28 @@ public class Penyakit implements Parcelable {
         this.namaPenyakit = namaPenyakit;
     }
 
-    public String getPenjelasanPenyakit() {
-        return penjelasanPenyakit;
+    public String getRingkasan() {
+        return ringkasan;
     }
 
-    public void setPenjelasanPenyakit(String penjelasanPenyakit) {
-        this.penjelasanPenyakit = penjelasanPenyakit;
+    public void setRingkasan(String ringkasan) {
+        this.ringkasan = ringkasan;
+    }
+
+    public String getImage() {
+        if (image != null){
+            return image;
+        } else {
+            return "no image";
+        }
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public boolean isHeader() {
+        return header;
     }
 
     @Override
@@ -64,6 +85,7 @@ public class Penyakit implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(IDPenyakit);
         dest.writeString(namaPenyakit);
-        dest.writeString(penjelasanPenyakit);
+        dest.writeString(ringkasan);
+        dest.writeString(image);
     }
 }
