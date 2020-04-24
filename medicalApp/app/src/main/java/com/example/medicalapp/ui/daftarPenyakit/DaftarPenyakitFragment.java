@@ -9,20 +9,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.medicalapp.Adapters.DaftarPenyakitAdapter;
-import com.example.medicalapp.Models.Penyakit;
+import com.example.medicalapp.adapters.DaftarPenyakitAdapter;
+import com.example.medicalapp.models.Penyakit;
 import com.example.medicalapp.R;
-import com.example.medicalapp.ui.daftarPenyakit.DetailPenyakit.DetailPenyakitActivity;
+import com.example.medicalapp.ui.daftarPenyakit.detailPenyakit.DetailPenyakitActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,16 +33,15 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAdapter.OnPenyakitListener {
+//    private DaftarPenyakitViewModel daftarPenyakitViewModel;
 
-    private DaftarPenyakitViewModel daftarPenyakitViewModel;
-
-    private Activity mActivity;
 
     //UI Components
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
 
     //Variables
+    private Activity mActivity;
     private ArrayList<Penyakit> mDaftarPenyakit = new ArrayList<>();
     private DaftarPenyakitAdapter mDaftarPenyakitAdapter;
 
@@ -71,7 +68,7 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
 //    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        daftarPenyakitViewModel = ViewModelProviders.of(this).get(DaftarPenyakitViewModel.class);
+        DaftarPenyakitViewModel daftarPenyakitViewModel = ViewModelProviders.of(this).get(DaftarPenyakitViewModel.class);
         View root = inflater.inflate(R.layout.fragment_daftar_penyakit, container, false);
         mRecyclerView = root.findViewById(R.id.recycler_penyakit);
         initRecyclerView();

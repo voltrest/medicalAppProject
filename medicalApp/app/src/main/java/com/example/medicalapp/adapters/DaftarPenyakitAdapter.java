@@ -1,4 +1,4 @@
-package com.example.medicalapp.Adapters;
+package com.example.medicalapp.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +8,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.medicalapp.Models.Penyakit;
+import com.example.medicalapp.models.Penyakit;
 import com.example.medicalapp.R;
 
 import java.util.ArrayList;
 
-//public class DaftarPenyakitAdapter extends RecyclerView.Adapter<DaftarPenyakitAdapter.MyViewHolder> {
 public class DaftarPenyakitAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private ArrayList<Penyakit> mDaftarPenyakit;
     private OnPenyakitListener mOnPenyakitListener;

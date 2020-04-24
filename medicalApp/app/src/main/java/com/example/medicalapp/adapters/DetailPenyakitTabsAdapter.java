@@ -1,4 +1,4 @@
-package com.example.medicalapp.Adapters;
+package com.example.medicalapp.adapters;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;

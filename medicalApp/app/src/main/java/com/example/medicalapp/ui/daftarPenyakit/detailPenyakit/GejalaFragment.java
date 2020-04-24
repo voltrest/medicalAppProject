@@ -1,4 +1,4 @@
-package com.example.medicalapp.ui.daftarPenyakit.DetailPenyakit;
+package com.example.medicalapp.ui.daftarPenyakit.detailPenyakit;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
