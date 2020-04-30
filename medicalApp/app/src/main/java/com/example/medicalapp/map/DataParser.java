@@ -1,4 +1,4 @@
-package com.example.medicalapp.Map;
+package com.example.medicalapp.map;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,13 +9,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DataParser {
-    private HashMap<String, String> getSingleNearbyPlace(JSONObject googlePlaceJSON){
+    private HashMap<String, String> getSingleHospital(JSONObject googlePlaceJSON){
         HashMap<String, String > googlePlaceMap = new HashMap<>();
         String nameOfPlace = "-NA-";
         String vicinity = "-NA-";
-        String latitude = "";
-        String longitude = "";
-        String reference = "";
+        String latitude;
+        String longitude;
+        String reference ;
 
         try {
             if (!googlePlaceJSON.isNull("name")){
@@ -40,21 +40,21 @@ public class DataParser {
         return googlePlaceMap;
     }
 
-    private List<HashMap<String, String>> getAllNearbyPlaces(JSONArray jsonArray){
+    private List<HashMap<String, String>> getAllHospitals(JSONArray jsonArray){
         int count = jsonArray.length();
-        List<HashMap<String, String>> nearbyPlacesList = new ArrayList<>();
+        List<HashMap<String, String>> nearbyHospitalsList = new ArrayList<>();
         HashMap<String, String> nearbyPlaceMap = null;
 
         for (int i = 0; i < count; i++){
             try {
-                nearbyPlaceMap = getSingleNearbyPlace((JSONObject) jsonArray.get(i));
+                nearbyPlaceMap = getSingleHospital((JSONObject) jsonArray.get(i));
                 //Should move this outside for loop?
-                nearbyPlacesList.add(nearbyPlaceMap);
+                nearbyHospitalsList.add(nearbyPlaceMap);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        return nearbyPlacesList;
+        return nearbyHospitalsList;
     }
 
     public List<HashMap<String, String>> parse(String jsonData){
@@ -67,6 +67,6 @@ public class DataParser {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return  getAllNearbyPlaces(jsonArray);
+        return  getAllHospitals(jsonArray);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.medicalapp.Map;
+package com.example.medicalapp.map;
 
 import java.io.BufferedReader;
 import java.io.IOException;

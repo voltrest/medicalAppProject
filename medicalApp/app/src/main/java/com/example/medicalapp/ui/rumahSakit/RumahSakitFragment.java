@@ -2,10 +2,10 @@ package com.example.medicalapp.ui.rumahSakit;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -21,35 +20,46 @@ import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.medicalapp.Map.GetNearbyPlaces;
+import com.example.medicalapp.adapters.DaftarRumahSakitAdapter;
+import com.example.medicalapp.map.DataParser;
+import com.example.medicalapp.map.DownloadUrl;
 import com.example.medicalapp.R;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class RumahSakitFragment extends Fragment
         implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-        LocationListener {
+        LocationListener,
+        DaftarRumahSakitAdapter.OnRumahSakitListener{
 
+    //UI Elements
     private RumahSakitViewModel rumahSakitViewModel;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private Button mSwitchViewButton;
 
     //Variables
     private Activity mActivity;
@@ -62,6 +72,8 @@ public class RumahSakitFragment extends Fragment
     private double mLatitude;
     private double mLongitude;
     private int mProximityRadius = 10000;
+    private List<HashMap<String, String>> mDaftarRumahSakit = new ArrayList<>();
+    private DaftarRumahSakitAdapter mDaftarRumahSakitAdapter;
 
     @Override
     public void onAttach(Context context) {
@@ -78,21 +90,10 @@ public class RumahSakitFragment extends Fragment
         mActivity = null;
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rumahSakitViewModel = ViewModelProviders.of(this).get(RumahSakitViewModel.class);
         View root = inflater.inflate(R.layout.fragment_rumah_sakit, container, false);
-//        final TextView textView = root.findViewById(R.id.text_notifications);
-//        rumahSakitViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
 
-//        if (isServicesOK()){
-//            init();
-//        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             checkUserLocationPermission();
         }
@@ -105,14 +106,39 @@ public class RumahSakitFragment extends Fragment
         mapView.onResume();
         mapView.getMapAsync(this);
 
-        Button button = root.findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
+        Button searchButton = root.findViewById(R.id.search_button);
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getNearbyHospitals();
             }
         });
+
+        mSwitchViewButton = root.findViewById(R.id.switch_view_button);
+        mSwitchViewButton.setText(getString(R.string.button_view_list));
+        mSwitchViewButton.setVisibility(View.GONE);
+        mSwitchViewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchView();
+            }
+        });
+
+        mRecyclerView = root.findViewById(R.id.recycler_rumah_sakit);
+        initRecyclerView();
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
+
         return root;
+    }
+
+    private void initRecyclerView(){
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mDaftarRumahSakitAdapter = new DaftarRumahSakitAdapter(mDaftarRumahSakit, this);
+        mRecyclerView.setAdapter(mDaftarRumahSakitAdapter);
+        mRecyclerView.setVisibility(View.GONE);
     }
 
     public boolean checkUserLocationPermission(){
@@ -220,27 +246,112 @@ public class RumahSakitFragment extends Fragment
     }
 
     private void getNearbyHospitals(){
-        Object transferData[] = new Object[2];
-        GetNearbyPlaces getNearbyPlaces = new GetNearbyPlaces();
+        class GetNearbyHospital extends AsyncTask<Object, String, String> {
+            private String googlePlaceData;
+            private GoogleMap mMap;
+
+            @Override
+            protected String doInBackground(Object... objects) {
+                mMap = (GoogleMap) objects[0];
+                String url = (String) objects[1];
+
+                DownloadUrl downloadUrl = new DownloadUrl();
+
+                try {
+                    googlePlaceData = downloadUrl.ReadTheURL(url);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return googlePlaceData;
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                DataParser dataParser = new DataParser();
+                mDaftarRumahSakit.clear();
+                mDaftarRumahSakit.addAll(dataParser.parse(s));
+                displayNearbyPlaces();
+            }
+
+//            private void displayNearbyPlaces(List<HashMap<String, String>> nearbyPlacesList){
+//                for (int i = 0; i < nearbyPlacesList.size(); i ++){
+//                    MarkerOptions markerOptions = new MarkerOptions();
+//                    HashMap<String, String> googleNearbyPlaces = nearbyPlacesList.get(i);
+//                    String nameOfPlaces = googleNearbyPlaces.get("place_name");
+//                    String vicinity = googleNearbyPlaces.get("vicinity");
+//                    double lat = Double.parseDouble(googleNearbyPlaces.get("lat"));
+//                    double lng = Double.parseDouble(googleNearbyPlaces.get("lng"));
+//
+//                    LatLng latLng = new LatLng(lat, lng);
+//                    markerOptions.position(latLng);
+//                    markerOptions.title(nameOfPlaces + ": " + vicinity);
+//                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+//                    mMap.addMarker(markerOptions);
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+//                    mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+//                }
+//            }
+        }
+
+        Object[] transferData = new Object[2];
+        GetNearbyHospital getNearbyHospital = new GetNearbyHospital();
 
         String url = getUrl(mLatitude, mLongitude);
         transferData[0] = mMap;
         transferData[1] = url;
 
-        getNearbyPlaces.execute(transferData);
+        getNearbyHospital.execute(transferData);
         Toast.makeText(getActivity(), "Searching for nearby hospitals", Toast.LENGTH_SHORT).show();;
     }
 
     private String getUrl(double latitude, double longitude){
         StringBuilder googleURL = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
-        googleURL.append("location=" + latitude + "," + longitude);
-        googleURL.append("&radius=" + mProximityRadius);
+        googleURL.append("location=").append(latitude).append(",").append(longitude);
+        googleURL.append("&radius=").append(mProximityRadius);
         googleURL.append("&type=hospital");
         googleURL.append("&sensor=true");
-        googleURL.append("&key=" + getString(R.string.google_places_key));
+        googleURL.append("&key=").append(getString(R.string.google_places_key));
 
         Log.d(TAG, "url = " + googleURL.toString());
 
         return googleURL.toString();
+    }
+
+    private void displayNearbyPlaces(){
+        for (int i = 0; i < mDaftarRumahSakit.size(); i ++){
+            MarkerOptions markerOptions = new MarkerOptions();
+            HashMap<String, String> googleNearbyPlaces = mDaftarRumahSakit.get(i);
+            String nameOfPlaces = googleNearbyPlaces.get("place_name");
+            String vicinity = googleNearbyPlaces.get("vicinity");
+            double lat = Double.parseDouble(googleNearbyPlaces.get("lat"));
+            double lng = Double.parseDouble(googleNearbyPlaces.get("lng"));
+
+            LatLng latLng = new LatLng(lat, lng);
+            markerOptions.position(latLng);
+            markerOptions.title(nameOfPlaces + ": " + vicinity);
+            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+            mMap.addMarker(markerOptions);
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
+        }
+        mDaftarRumahSakitAdapter.notifyDataSetChanged();
+//        mRecyclerView.setVisibility(View.VISIBLE);
+        mSwitchViewButton.setVisibility(View.VISIBLE);
+    }
+
+    private void switchView(){
+        if (mRecyclerView.getVisibility() == View.GONE){
+            mRecyclerView.setVisibility(View.VISIBLE);
+            mSwitchViewButton.setText(getString(R.string.button_view_map));
+        } else if (mRecyclerView.getVisibility() == View.VISIBLE){
+            mRecyclerView.setVisibility(View.GONE);
+            mSwitchViewButton.setText(getString(R.string.button_view_list));
+        }
+    }
+
+    @Override
+    public void onRumahSakitClick(int position) {
+
     }
 }

@@ -35,7 +35,6 @@ import java.util.ArrayList;
 public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAdapter.OnPenyakitListener {
 //    private DaftarPenyakitViewModel daftarPenyakitViewModel;
 
-
     //UI Components
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -68,7 +67,7 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
 //    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        DaftarPenyakitViewModel daftarPenyakitViewModel = ViewModelProviders.of(this).get(DaftarPenyakitViewModel.class);
+//        DaftarPenyakitViewModel daftarPenyakitViewModel = ViewModelProviders.of(this).get(DaftarPenyakitViewModel.class);
         View root = inflater.inflate(R.layout.fragment_daftar_penyakit, container, false);
         mRecyclerView = root.findViewById(R.id.recycler_penyakit);
         initRecyclerView();
@@ -111,7 +110,6 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
             //so here we are displaying a toast with the json string
             @Override
             protected void onPostExecute(String s) {
-                super.onPostExecute(s);
 //                Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
                 try {
                     loadIntoRecyclerView(s);

@@ -1,4 +1,4 @@
-package com.example.medicalapp.Map;
+package com.example.medicalapp.map;
 
 import android.os.AsyncTask;
 
@@ -12,15 +12,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
+public class getNearbyHospitalGAGAL extends AsyncTask<Object, String, String> {
     private String googlePlaceData;
-    private String url;
     private GoogleMap mMap;
 
     @Override
     protected String doInBackground(Object... objects) {
         mMap = (GoogleMap) objects[0];
-        url = (String) objects[1];
+        String url = (String) objects[1];
 
         DownloadUrl downloadUrl = new DownloadUrl();
 
@@ -36,10 +35,10 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
     @Override
     protected void onPostExecute(String s) {
 //        super.onPostExecute(s);
-        List<HashMap<String, String>> nearbyPlacesList = null;
+        List<HashMap<String, String>> nearbyHospitalsList = null;
         DataParser dataParser = new DataParser();
-        nearbyPlacesList = dataParser.parse(s);
-        displayNearbyPlaces(nearbyPlacesList);
+        nearbyHospitalsList = dataParser.parse(s);
+        displayNearbyPlaces(nearbyHospitalsList);
     }
 
     private void displayNearbyPlaces(List<HashMap<String, String>> nearbyPlacesList){
@@ -58,7 +57,6 @@ public class GetNearbyPlaces extends AsyncTask<Object, String, String> {
             mMap.addMarker(markerOptions);
             mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
             mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
-
         }
     }
 }
