@@ -8,8 +8,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DownloadUrl {
-    public String ReadTheURL(String placeURL)throws IOException{
+public class UrlReader {
+    public String ReadURL(String placeURL)throws IOException{
         String data = "";
         InputStream inputStream = null;
         HttpURLConnection connection = null;
@@ -23,7 +23,7 @@ public class DownloadUrl {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             StringBuffer stringBuffer = new StringBuffer();
 
-            String line = "";
+            String line;
 
             while ((line = bufferedReader.readLine()) != null){
                 stringBuffer.append(line);

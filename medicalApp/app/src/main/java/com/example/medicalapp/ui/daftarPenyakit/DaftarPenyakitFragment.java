@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +42,7 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
     private Activity mActivity;
     private ArrayList<Penyakit> mDaftarPenyakit = new ArrayList<>();
     private DaftarPenyakitAdapter mDaftarPenyakitAdapter;
+    private static final String TAG = "DaftarPenyakitFragment";
 
     @Override
     public void onAttach(Context context) {
@@ -62,7 +62,7 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
 //    @Override
 //    public void onCreate(@Nullable Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        getJSON("http://192.168.1.21/get_daftar_penyakit.php");
+//        getData("http://192.168.1.21/get_daftar_penyakit.php");
 //
 //    }
 
@@ -75,7 +75,7 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        getJSON("http://192.168.1.21/get_daftar_penyakit.php");
+        getData("http://192.168.1.17/get_daftar_penyakit.php");
         return root;
     }
 
@@ -86,7 +86,7 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
         mRecyclerView.setAdapter(mDaftarPenyakitAdapter);
     }
 
-    private void getJSON(final String urlWebService) {
+    private void getData(final String urlWebService) {
         /*
          * As fetching the json string is a network operation
          * And we cannot perform a network operation in main thread
@@ -112,10 +112,8 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
             protected void onPostExecute(String s) {
 //                Toast.makeText(getActivity(), s, Toast.LENGTH_LONG).show();
                 try {
-                    loadIntoRecyclerView(s);
-                    for (int i = 0; i < mDaftarPenyakit.size(); i++){
-                        Log.i("tag", mDaftarPenyakit.get(i).getNamaPenyakit());
-                        Log.i("tag", "image: " + mDaftarPenyakit.get(i).getImage());
+                    if (s != null){
+                        loadIntoRecyclerView(s);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -132,7 +130,7 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                     int status = conn.getResponseCode();
-                    Log.i("tag", "getJSON: connection response code = " + status);
+                    Log.i("tag", "getData: connection response code = " + status);
 
                     //StringBuilder object to read the string from the service
                     StringBuilder stringBuilder = new StringBuilder();
@@ -145,7 +143,6 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
                         //appending it to string builder
                         stringBuilder.append(json + "\n");
                     }
-                    //finally returning the read string
                     return stringBuilder.toString().trim();
                 } catch (Exception e) {
                     return null;
@@ -169,12 +166,17 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
             JSONObject obj = jsonArray.getJSONObject(i);
             //Add a header to the list if it's a new letter
             if (obj.getString("nama_penyakit").charAt(0) != tempChar){
-                mDaftarPenyakit.add(new Penyakit("", obj.getString("nama_penyakit").substring(0, 1), "", "", true));
+                mDaftarPenyakit.add(new Penyakit(obj.getString("nama_penyakit").substring(0, 1), true));
             }
             mDaftarPenyakit.add(new Penyakit(obj.getString("id_penyakit"),
                     obj.getString("nama_penyakit"),
-                    obj.getString("ringkasan"),
                     obj.getString("image"),
+                    obj.getString("ringkasan"),
+                    obj.getString("penyebab"),
+                    obj.getString("gejala"),
+                    obj.getString("diagnosa"),
+                    obj.getString("pencegahan"),
+                    obj.getString("spesialis"),
                     false));
 
             tempChar = obj.getString("nama_penyakit").charAt(0);

@@ -3,10 +3,33 @@
     <string name="title_home">Home</string>
     <string name="title_penyakit">Daftar Penyakit</string>
     <string name="title_rumah_sakit">Rumah Sakit</string>
+    <string name="title_pandemi">COVID-19</string>
+    <string name="title_kasus_per_provinsi">Kasus per Provinsi</string>
 
+    //Illness Detail Strings
+    <string name="string_ringkasan">Ringkasan</string>
+    <string name="string_penyebab">Penyebab</string>
+    <string name="string_gejala">Gejala</string>
+    <string name="string_diagnosa">Diagnosa</string>
+    <string name="string_pencegahan">Pencegahan</string>
+    <string name="string_spesialis">Spesialis</string>
+
+    //Map Strings
     <string name="button_view_list">View list</string>
     <string name="button_view_map">View map</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    //Hospital Detail Strings
+    <string name="string_rating">Rating</string>
+    <string name="string_alamat">Alamat</string>
+    <string name="string_telpon">Telpon</string>
+    <string name="string_website">Website</string>
+    <string name="string_double_dot">:</string>
+
+    //Pandemi
+    <string name="string_covid19_indonesia">Kasus COVID-19 di Indonesia</string>
+    <string name="string_kasus_per_provinsi">Kasus per Provinsi</string>
+    <string name="string_provinsi">Provinsi</string>
+    <string name="string_positif">Positif</string>
+    <string name="string_sembuh">Sembuh</string>
+    <string name="string_meninggal">Meninggal</string>
 </resources>

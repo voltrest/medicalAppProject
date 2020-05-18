@@ -6,26 +6,51 @@ import android.os.Parcelable;
 public class Penyakit implements Parcelable {
     private String IDPenyakit;
     private String namaPenyakit;
-    private String ringkasan;
     private String image;
+    private String ringkasan;
+    private String penyebab;
+    private String gejala;
+    private String diagnosa;
+    private String pencegahan;
+    private String spesialis;
     private boolean header;
 
-    public Penyakit(String IDPenyakit, String namaPenyakit, String ringkasan, String image, boolean header) {
+    public Penyakit(String IDPenyakit, String namaPenyakit, String image, String ringkasan, String penyebab, String gejala, String diagnosa, String pencegahan, String spesialis, boolean header) {
         this.IDPenyakit = IDPenyakit;
         this.namaPenyakit = namaPenyakit;
-        this.ringkasan = ringkasan;
         this.image = image;
+        this.ringkasan = ringkasan;
+        this.penyebab = penyebab;
+        this.gejala = gejala;
+        this.diagnosa = diagnosa;
+        this.pencegahan = pencegahan;
+        this.spesialis = spesialis;
         this.header = header;
     }
 
-    public Penyakit() {
+    public Penyakit(String namaPenyakit, boolean header) {
+        this.IDPenyakit = "";
+        this.namaPenyakit = namaPenyakit;
+        this.image = "";
+        this.ringkasan = "";
+        this.penyebab = "";
+        this.gejala = "";
+        this.diagnosa = "";
+        this.pencegahan = "";
+        this.spesialis = "";
+        this.header = header;
     }
 
     protected Penyakit(Parcel in) {
         IDPenyakit = in.readString();
         namaPenyakit = in.readString();
-        ringkasan = in.readString();
         image = in.readString();
+        ringkasan = in.readString();
+        penyebab = in.readString();
+        gejala = in.readString();
+        diagnosa = in.readString();
+        pencegahan = in.readString();
+        spesialis = in.readString();
     }
 
     public static final Creator<Penyakit> CREATOR = new Creator<Penyakit>() {
@@ -52,14 +77,6 @@ public class Penyakit implements Parcelable {
         this.namaPenyakit = namaPenyakit;
     }
 
-    public String getRingkasan() {
-        return ringkasan;
-    }
-
-    public void setRingkasan(String ringkasan) {
-        this.ringkasan = ringkasan;
-    }
-
     public String getImage() {
         if (image != null){
             return image;
@@ -70,6 +87,54 @@ public class Penyakit implements Parcelable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getRingkasan() {
+        return ringkasan;
+    }
+
+    public void setRingkasan(String ringkasan) {
+        this.ringkasan = ringkasan;
+    }
+
+    public String getPenyebab() {
+        return penyebab;
+    }
+
+    public void setPenyebab(String penyebab) {
+        this.penyebab = penyebab;
+    }
+
+    public String getGejala() {
+        return gejala;
+    }
+
+    public void setGejala(String gejala) {
+        this.gejala = gejala;
+    }
+
+    public String getDiagnosa() {
+        return diagnosa;
+    }
+
+    public void setDiagnosa(String diagnosa) {
+        this.diagnosa = diagnosa;
+    }
+
+    public String getPencegahan() {
+        return pencegahan;
+    }
+
+    public void setPencegahan(String pencegahan) {
+        this.pencegahan = pencegahan;
+    }
+
+    public String getSpesialis() {
+        return spesialis;
+    }
+
+    public void setSpesialis(String spesialis) {
+        this.spesialis = spesialis;
     }
 
     public boolean isHeader() {
@@ -85,7 +150,12 @@ public class Penyakit implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(IDPenyakit);
         dest.writeString(namaPenyakit);
-        dest.writeString(ringkasan);
         dest.writeString(image);
+        dest.writeString(ringkasan);
+        dest.writeString(penyebab);
+        dest.writeString(gejala);
+        dest.writeString(diagnosa);
+        dest.writeString(pencegahan);
+        dest.writeString(spesialis);
     }
 }

@@ -12,8 +12,7 @@
         android:id="@+id/nama_rumah_sakit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="#000000"/>
+        style="@style/Header"/>
 
     <TextView
         android:id="@+id/jenis_rumah_sakit"

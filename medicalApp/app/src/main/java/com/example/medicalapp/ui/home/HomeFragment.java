@@ -2,16 +2,15 @@ package com.example.medicalapp.ui.home;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
@@ -19,17 +18,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import com.example.medicalapp.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import com.example.medicalapp.ui.pandemi.KasusPerProvinsiActivity;
+import com.example.medicalapp.ui.pandemi.PandemiActivity;
 
 public class HomeFragment extends Fragment {
+    private Button mButton;
+
     private HomeViewModel homeViewModel;
 
     private Activity mActivity;
@@ -62,6 +56,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
+            }
+        });
+
+        mButton = root.findViewById(R.id.button_pandemi);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), PandemiActivity.class);
+                startActivity(intent);
             }
         });
         return root;

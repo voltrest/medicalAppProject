@@ -19,6 +19,17 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
+        <activity
+            android:name=".ui.pandemi.KasusPerProvinsiActivity"
+            android:label="@string/title_kasus_per_provinsi"
+            android:parentActivityName=".ui.pandemi.PandemiActivity"/>
+        <activity
+            android:name=".ui.pandemi.PandemiActivity"
+            android:label="@string/title_pandemi"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".ui.rumahSakit.DetailRumahSakitActivity"/>
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
@@ -36,9 +47,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.daftarPenyakit.detailPenyakit.DetailPenyakitActivity"/>
-
+        <activity android:name=".ui.daftarPenyakit.detailPenyakit.DetailPenyakitActivity" />
     </application>
 
 </manifest>

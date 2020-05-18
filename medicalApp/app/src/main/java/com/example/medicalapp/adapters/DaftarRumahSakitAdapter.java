@@ -50,7 +50,7 @@ public class DaftarRumahSakitAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int position) {
         MyViewHolder myViewHolder = (MyViewHolder) viewHolder;
-        myViewHolder.namaRumahSakit.setText(mDaftarRumahSakit.get(position).get("place_name"));
+        myViewHolder.namaRumahSakit.setText(mDaftarRumahSakit.get(position).get("name"));
     }
 
     @Override

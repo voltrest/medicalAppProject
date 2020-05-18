@@ -15,11 +15,13 @@ import android.widget.TextView;
 import com.example.medicalapp.models.Penyakit;
 import com.example.medicalapp.R;
 
-public class RingkasanFragment extends Fragment implements DetailPenyakitActivity.RingkasanListener {
+public class PenyakitTab1Fragment extends Fragment implements DetailPenyakitActivity.PenyakitTab1Listener {
 
     //UI Elements
     private ImageView mImageView;
     private TextView mRingkasanTextView;
+    private TextView mPenyebabTextView;
+    private TextView mGejalaTextView;
 
     //Variables
     private DetailPenyakitActivity mActivity;
@@ -29,7 +31,7 @@ public class RingkasanFragment extends Fragment implements DetailPenyakitActivit
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = (DetailPenyakitActivity) getActivity();
-        mActivity.setRingkasanListener(this);
+        mActivity.setPenyakitTab1Listener(this);
     }
 
     @Override
@@ -41,9 +43,11 @@ public class RingkasanFragment extends Fragment implements DetailPenyakitActivit
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_ringkasan, container, false);
+        View root = inflater.inflate(R.layout.fragment_penyakit_tab1, container, false);
         mImageView = root.findViewById(R.id.image_penyakit);
         mRingkasanTextView = root.findViewById(R.id.ringkasan);
+        mPenyebabTextView = root.findViewById(R.id.penyebab);
+        mGejalaTextView = root.findViewById(R.id.gejala);
         mActivity.sendPenyakit();
         return root;
     }
@@ -57,5 +61,7 @@ public class RingkasanFragment extends Fragment implements DetailPenyakitActivit
             Log.d(TAG, "getActivity().getPackageName() returns null");
         }
         mRingkasanTextView.setText(penyakit.getRingkasan());
+        mPenyebabTextView.setText(penyakit.getPenyebab());
+        mGejalaTextView.setText(penyakit.getGejala());
     }
 }
