@@ -3,14 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp">
+    android:layout_height="match_parent">
 
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="34"
+        android:layout_weight="38"
         android:text="@string/string_provinsi"
         style="@style/Paragraph2"/>
 
@@ -22,8 +20,9 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="22"
+        android:layout_weight="20"
         android:text="@string/string_positif"
+        android:textAlignment="center"
         style="@style/Paragraph2"/>
 
     <LinearLayout
@@ -34,8 +33,9 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="22"
+        android:layout_weight="20"
         android:text="@string/string_sembuh"
+        android:textAlignment="center"
         style="@style/Paragraph2"/>
 
     <LinearLayout
@@ -48,5 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="22"
         android:text="@string/string_meninggal"
+        android:textAlignment="center"
         style="@style/Paragraph2"/>
+
 </TableRow>

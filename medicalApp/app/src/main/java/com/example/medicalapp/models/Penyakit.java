@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Penyakit implements Parcelable {
-    private String IDPenyakit;
+    private String IdPenyakit;
     private String namaPenyakit;
     private String image;
     private String ringkasan;
@@ -15,8 +15,8 @@ public class Penyakit implements Parcelable {
     private String spesialis;
     private boolean header;
 
-    public Penyakit(String IDPenyakit, String namaPenyakit, String image, String ringkasan, String penyebab, String gejala, String diagnosa, String pencegahan, String spesialis, boolean header) {
-        this.IDPenyakit = IDPenyakit;
+    public Penyakit(String IdPenyakit, String namaPenyakit, String image, String ringkasan, String penyebab, String gejala, String diagnosa, String pencegahan, String spesialis, boolean header) {
+        this.IdPenyakit = IdPenyakit;
         this.namaPenyakit = namaPenyakit;
         this.image = image;
         this.ringkasan = ringkasan;
@@ -29,7 +29,7 @@ public class Penyakit implements Parcelable {
     }
 
     public Penyakit(String namaPenyakit, boolean header) {
-        this.IDPenyakit = "";
+        this.IdPenyakit = "";
         this.namaPenyakit = namaPenyakit;
         this.image = "";
         this.ringkasan = "";
@@ -42,7 +42,7 @@ public class Penyakit implements Parcelable {
     }
 
     protected Penyakit(Parcel in) {
-        IDPenyakit = in.readString();
+        IdPenyakit = in.readString();
         namaPenyakit = in.readString();
         image = in.readString();
         ringkasan = in.readString();
@@ -65,8 +65,8 @@ public class Penyakit implements Parcelable {
         }
     };
 
-    public String getIDPenyakit() {
-        return IDPenyakit;
+    public String getIdPenyakit() {
+        return IdPenyakit;
     }
 
     public String getNamaPenyakit() {
@@ -148,7 +148,7 @@ public class Penyakit implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(IDPenyakit);
+        dest.writeString(IdPenyakit);
         dest.writeString(namaPenyakit);
         dest.writeString(image);
         dest.writeString(ringkasan);

@@ -41,4 +41,7 @@ dependencies {
     //Google
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+
+    //Michael's added implementation
+    implementation 'com.github.armcha:SpaceNavigationView:1.6.0'
 }

@@ -1,27 +1,20 @@
-package com.example.medicalapp.ui.daftarPenyakit;
+package com.example.medicalapp.ui.pandemi;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.medicalapp.adapters.DaftarPenyakitAdapter;
-import com.example.medicalapp.models.Penyakit;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+
 import com.example.medicalapp.R;
-import com.example.medicalapp.ui.daftarPenyakit.detailPenyakit.DetailPenyakitActivity;
+import com.example.medicalapp.adapters.MythBusterAdapter;
+import com.example.medicalapp.models.Myth;
+import com.example.medicalapp.models.Penyakit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,61 +26,47 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAdapter.OnPenyakitListener {
-//    private DaftarPenyakitViewModel daftarPenyakitViewModel;
-
+public class MythBusterActivity extends AppCompatActivity {
     //UI Components
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private ProgressBar mProgressBar;
 
     //Variables
-    private Activity mActivity;
-    private ArrayList<Penyakit> mDaftarPenyakit = new ArrayList<>();
-    private DaftarPenyakitAdapter mDaftarPenyakitAdapter;
-    private static final String TAG = "DaftarPenyakitFragment";
+    private ArrayList<Myth> mMythList = new ArrayList<>();
+    private MythBusterAdapter mMythBusterAdapter;
+    private ArrayList<Integer> mColorList = new ArrayList<>();
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_myth_buster);
 
-        if (context instanceof Activity){
-            mActivity =(Activity) context;
-        }
-    }
+        mColorList.add(ContextCompat.getColor(this, R.color.green));
+        mColorList.add(ContextCompat.getColor(this, R.color.sea_green));
+        mColorList.add(ContextCompat.getColor(this, R.color.steel_blue));
+        mColorList.add(ContextCompat.getColor(this, R.color.royal_blue));
+        mColorList.add(ContextCompat.getColor(this, R.color.slate_blue));
+        mColorList.add(ContextCompat.getColor(this, R.color.dark_orchid));
+        mColorList.add(ContextCompat.getColor(this, R.color.deep_pink));
+        mColorList.add(ContextCompat.getColor(this, R.color.peru));
+        mColorList.add(ContextCompat.getColor(this, R.color.crimson));
+        mColorList.add(ContextCompat.getColor(this, R.color.dark_orange));
+        mColorList.add(ContextCompat.getColor(this, R.color.gold));
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mActivity = null;
-    }
-
-//    @Override
-//    public void onCreate(@Nullable Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        getData("http://192.168.1.5/get_daftar_penyakit.php");
-//    }
-
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        DaftarPenyakitViewModel daftarPenyakitViewModel = ViewModelProviders.of(this).get(DaftarPenyakitViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_daftar_penyakit, container, false);
-        mRecyclerView = root.findViewById(R.id.recycler_penyakit);
+        mRecyclerView = findViewById(R.id.recycler_myth);
         initRecyclerView();
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
-        mRecyclerView.addItemDecoration(dividerItemDecoration);
+        mProgressBar = findViewById(R.id.progress_bar);
 
-        mProgressBar = root.findViewById(R.id.progress_bar);
-
-        getData("http://192.168.1.14/get_daftar_penyakit.php");
-        return root;
+        getData("http://192.168.1.14/get_myth_buster.php");
     }
 
     private void initRecyclerView(){
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mDaftarPenyakitAdapter = new DaftarPenyakitAdapter(mDaftarPenyakit, this);
-        mRecyclerView.setAdapter(mDaftarPenyakitAdapter);
+        mMythBusterAdapter = new MythBusterAdapter(mMythList, mColorList);
+        mRecyclerView.setAdapter(mMythBusterAdapter);
     }
 
     private void getData(final String urlWebService) {
@@ -159,39 +138,17 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
     }
 
     private void loadIntoRecyclerView(String json) throws JSONException {
-        mDaftarPenyakit.clear();
+        mMythList.clear();
         //creating a json array from the json string
         JSONArray jsonArray = new JSONArray(json);
-        //tempChar keeps the first letter of the previous disease
-        char tempChar = '0';
         //looping through all the elements in json array
         for (int i = 0; i < jsonArray.length(); i++) {
             //getting json object from the json array
             JSONObject obj = jsonArray.getJSONObject(i);
-            //Add a header to the list if it's a new letter
-            if (obj.getString("nama_penyakit").charAt(0) != tempChar){
-                mDaftarPenyakit.add(new Penyakit(obj.getString("nama_penyakit").substring(0, 1), true));
-            }
-            mDaftarPenyakit.add(new Penyakit(obj.getString("id_penyakit"),
-                    obj.getString("nama_penyakit"),
-                    obj.getString("image"),
-                    obj.getString("ringkasan"),
-                    obj.getString("penyebab"),
-                    obj.getString("gejala"),
-                    obj.getString("diagnosa"),
-                    obj.getString("pencegahan"),
-                    obj.getString("spesialis"),
-                    false));
-
-            tempChar = obj.getString("nama_penyakit").charAt(0);
+            mMythList.add(new Myth(obj.getString("id_myth"),
+                    obj.getString("pertanyaan"),
+                    obj.getString("jawaban")));
         }
-        mDaftarPenyakitAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onPenyakitClick(int position) {
-        Intent intent = new Intent(getActivity(), DetailPenyakitActivity.class);
-        intent.putExtra("penyakit_terpilih", mDaftarPenyakit.get(position));
-        startActivity(intent);
+        mMythBusterAdapter.notifyDataSetChanged();
     }
 }

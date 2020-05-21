@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -27,6 +28,8 @@ public class PandemiActivity extends AppCompatActivity {
     private TextView mMeninggalText;
     private TextView mSembuhText;
     private Button mKasusProvinsiButton;
+    private Button mMythBusterButton;
+    private ProgressBar mProgressBar;
 
     //Variables
     private static final String TAG = "Pandemi Activity";
@@ -48,6 +51,17 @@ public class PandemiActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mMythBusterButton = findViewById(R.id.button_myth_buster);
+        mMythBusterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PandemiActivity.this, MythBusterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mProgressBar = findViewById(R.id.progress_bar);
 
         getIndoData();
     }
@@ -87,6 +101,7 @@ public class PandemiActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 //progress bar disappears
+                mProgressBar.setVisibility(View.GONE);
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject jsonObject = new JSONObject();

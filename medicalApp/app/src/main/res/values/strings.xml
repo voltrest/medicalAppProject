@@ -28,6 +28,7 @@
     //Pandemi
     <string name="string_covid19_indonesia">Kasus COVID-19 di Indonesia</string>
     <string name="string_kasus_per_provinsi">Kasus per Provinsi</string>
+    <string name="string_myth_buster">Myth Buster</string>
     <string name="string_provinsi">Provinsi</string>
     <string name="string_positif">Positif</string>
     <string name="string_sembuh">Sembuh</string>

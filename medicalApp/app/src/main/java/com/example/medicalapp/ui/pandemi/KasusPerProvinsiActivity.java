@@ -23,8 +23,8 @@ import org.json.JSONObject;
 
 public class KasusPerProvinsiActivity extends AppCompatActivity {
     //UI Elements
-    private TableLayout tableLayout;
-    private ProgressBar progressBar;
+    private TableLayout mTableLayout;
+    private ProgressBar mProgressBar;
 
     //Variables
     private static final String TAG = "Kasus Per Provinsi Act";
@@ -34,8 +34,8 @@ public class KasusPerProvinsiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kasus_per_provinsi);
 
-        tableLayout = findViewById(R.id.table_kasus_per_provinsi);
-        progressBar = findViewById(R.id.progress_bar);
+        mTableLayout = findViewById(R.id.table_kasus_per_provinsi);
+        mProgressBar = findViewById(R.id.progress_bar);
 
         getPerProvinsiData();
     }
@@ -46,8 +46,7 @@ public class KasusPerProvinsiActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //progress bar disappear
-                progressBar.setVisibility(View.GONE);
+                mProgressBar.setVisibility(View.GONE);
 
                 try {
                     JSONArray jsonArray = new JSONArray(response);
@@ -69,7 +68,7 @@ public class KasusPerProvinsiActivity extends AppCompatActivity {
     private void setContent(JSONArray jsonArray){
         try{
             View tableHeader = getLayoutInflater().inflate(R.layout.table_provinsi_header, null, false);
-            tableLayout.addView(tableHeader);
+            mTableLayout.addView(tableHeader);
             for (int i = 0; i < jsonArray.length(); i ++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject("attributes");
                 View tableRow = getLayoutInflater().inflate(R.layout.table_provinsi_row, null, false);
@@ -81,7 +80,7 @@ public class KasusPerProvinsiActivity extends AppCompatActivity {
                 positifDakit.setText(jsonObject.getString("Kasus_Posi"));
                 sembuh.setText(jsonObject.getString("Kasus_Semb"));
                 meninggal.setText(jsonObject.getString("Kasus_Meni"));
-                tableLayout.addView(tableRow);
+                mTableLayout.addView(tableRow);
 
                 Log.d(TAG, "setContent: ");
             }
