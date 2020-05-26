@@ -12,7 +12,7 @@
         android:id="@+id/nama_rumah_sakit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Header"/>
+        style="@style/Header1Black"/>
 
     <TextView
         android:id="@+id/jenis_rumah_sakit"

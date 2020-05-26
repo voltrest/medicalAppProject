@@ -24,9 +24,12 @@ import org.json.JSONObject;
 
 public class PandemiActivity extends AppCompatActivity {
     //UI Components
-    private TextView mPositifSakitText;
-    private TextView mMeninggalText;
-    private TextView mSembuhText;
+    private TextView mDuniaPositifText;
+    private TextView mDuniaSembuhText;
+    private TextView mDuniaMeninggalText;
+    private TextView mIndoPositifText;
+    private TextView mIndoMeninggalText;
+    private TextView mIndoSembuhText;
     private Button mKasusProvinsiButton;
     private Button mMythBusterButton;
     private ProgressBar mProgressBar;
@@ -39,9 +42,13 @@ public class PandemiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pandemi);
 
-        mPositifSakitText = findViewById(R.id.text_positif_sakit);
-        mMeninggalText = findViewById(R.id.text_meninggal);
-        mSembuhText = findViewById(R.id.text_sembuh);
+        mDuniaPositifText = findViewById(R.id.text_dunia_positif);
+        mDuniaSembuhText = findViewById(R.id.text_dunia_sembuh);
+        mDuniaMeninggalText = findViewById(R.id.text_dunia_meninggal);
+
+        mIndoPositifText = findViewById(R.id.text_indo_positif);
+        mIndoSembuhText = findViewById(R.id.text_indo_sembuh);
+        mIndoMeninggalText = findViewById(R.id.text_indo_meninggal);
 
         mKasusProvinsiButton = findViewById(R.id.button_kasus_provinsi);
         mKasusProvinsiButton.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +70,7 @@ public class PandemiActivity extends AppCompatActivity {
 
         mProgressBar = findViewById(R.id.progress_bar);
 
+        getDuniaData();
         getIndoData();
     }
 
@@ -94,6 +102,87 @@ public class PandemiActivity extends AppCompatActivity {
 //        queue.add(stringRequest);
 //    }
 
+    private void getDuniaData(){
+        getDuniaPositifData();
+        getDuniaSembuhData();
+        getDuniaMeninggalData();
+    }
+
+    private void getDuniaPositifData(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://api.kawalcorona.com/positif";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //progress bar disappears
+//                mProgressBar.setVisibility(View.GONE);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    mDuniaPositifText.setText(jsonObject.getString("value"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "onErrorResponse: " + error.toString());
+            }
+        });
+
+        queue.add(stringRequest);
+    }
+
+    private void getDuniaSembuhData(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://api.kawalcorona.com/sembuh";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //progress bar disappears
+//                mProgressBar.setVisibility(View.GONE);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    mDuniaSembuhText.setText(jsonObject.getString("value"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "onErrorResponse: " + error.toString());
+            }
+        });
+
+        queue.add(stringRequest);
+    }
+
+    private void getDuniaMeninggalData(){
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://api.kawalcorona.com/meninggal";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //progress bar disappears
+//                mProgressBar.setVisibility(View.GONE);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    mDuniaMeninggalText.setText(jsonObject.getString("value"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "onErrorResponse: " + error.toString());
+            }
+        });
+
+        queue.add(stringRequest);
+    }
+
     private void getIndoData(){
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://api.kawalcorona.com/indonesia/";
@@ -106,9 +195,9 @@ public class PandemiActivity extends AppCompatActivity {
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject jsonObject = new JSONObject();
                     jsonObject = jsonArray.getJSONObject(0);
-                    mPositifSakitText.setText(jsonObject.getString("positif"));
-                    mSembuhText.setText(jsonObject.getString("sembuh"));
-                    mMeninggalText.setText(jsonObject.getString("meninggal"));
+                    mIndoPositifText.setText(jsonObject.getString("positif"));
+                    mIndoSembuhText.setText(jsonObject.getString("sembuh"));
+                    mIndoMeninggalText.setText(jsonObject.getString("meninggal"));
                     Log.e(TAG, "onResponse: Positif: " + jsonObject.getString("positif"));
                 } catch (JSONException e) {
                     e.printStackTrace();

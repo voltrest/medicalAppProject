@@ -1,6 +1,7 @@
 package com.example.medicalapp.ui.pandemi;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -71,15 +72,20 @@ public class KasusPerProvinsiActivity extends AppCompatActivity {
             mTableLayout.addView(tableHeader);
             for (int i = 0; i < jsonArray.length(); i ++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject("attributes");
+
                 View tableRow = getLayoutInflater().inflate(R.layout.table_provinsi_row, null, false);
                 TextView provinsi = tableRow.findViewById(R.id.text_provinsi);
                 TextView positifDakit = tableRow.findViewById(R.id.text_provinsi_positif_sakit);
                 TextView sembuh = tableRow.findViewById(R.id.text_provinsi_sembuh);
                 TextView meninggal = tableRow.findViewById(R.id.text_provinsi_meninggal);
+
                 provinsi.setText(jsonObject.getString("Provinsi"));
                 positifDakit.setText(jsonObject.getString("Kasus_Posi"));
                 sembuh.setText(jsonObject.getString("Kasus_Semb"));
                 meninggal.setText(jsonObject.getString("Kasus_Meni"));
+                if (i % 2 == 1){
+                    tableRow.setBackgroundColor(ContextCompat.getColor(this, R.color.white_blue));
+                }
                 mTableLayout.addView(tableRow);
 
                 Log.d(TAG, "setContent: ");

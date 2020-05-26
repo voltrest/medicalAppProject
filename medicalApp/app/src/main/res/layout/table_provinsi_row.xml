@@ -10,7 +10,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="38"
-        style="@style/Paragraph2"/>
+        style="@style/Paragraph2Black"/>
 
     <LinearLayout
         android:layout_width="1dp"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="20"
         android:textAlignment="center"
-        style="@style/Header"/>
+        style="@style/Header1Black"/>
 
     <LinearLayout
         android:layout_width="1dp"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="20"
         android:textAlignment="center"
-        style="@style/Header"/>
+        style="@style/Header1Black"/>
 
     <LinearLayout
         android:layout_width="1dp"
@@ -49,5 +49,5 @@
         android:layout_height="wrap_content"
         android:layout_weight="22"
         android:textAlignment="center"
-        style="@style/Header"/>
+        style="@style/Header1Black"/>
 </TableRow>

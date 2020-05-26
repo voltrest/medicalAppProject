@@ -26,7 +26,9 @@
     <string name="string_double_dot">:</string>
 
     //Pandemi
-    <string name="string_covid19_indonesia">Kasus COVID-19 di Indonesia</string>
+    <string name="string_covid19_dunia">Kasus COVID-19 di Dunia</string>
+    <string name="string_covid19_indo">Kasus COVID-19 di Indonesia</string>
+    <string name="string_kasus_per_negara">Kasus per Negara</string>
     <string name="string_kasus_per_provinsi">Kasus per Provinsi</string>
     <string name="string_myth_buster">Myth Buster</string>
     <string name="string_provinsi">Provinsi</string>

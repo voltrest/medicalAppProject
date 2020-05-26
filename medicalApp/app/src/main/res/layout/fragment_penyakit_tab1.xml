@@ -26,7 +26,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/string_ringkasan"
-            style="@style/Header"
+            style="@style/Header1Black"
 
             android:textStyle="bold"
             android:background="#E5E5E5"/>
@@ -44,7 +44,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/string_penyebab"
-            style="@style/Header"
+            style="@style/Header1Black"
             android:textStyle="bold"
             android:background="#E5E5E5"/>
 
@@ -61,7 +61,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/string_gejala"
-            style="@style/Header"
+            style="@style/Header1Black"
             android:textStyle="bold"
             android:background="#E5E5E5"/>
 

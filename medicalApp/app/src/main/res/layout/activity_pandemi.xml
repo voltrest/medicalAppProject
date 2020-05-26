@@ -116,108 +116,215 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp"
-        tools:context=".ui.pandemi.PandemiActivity"
         android:orientation="vertical">
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/string_covid19_indonesia"
-            style="@style/Header"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="16dp"
+            tools:context=".ui.pandemi.PandemiActivity">
+
+
+            <TextView
+                style="@style/Header1Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/string_covid19_indo" />
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/string_positif"
-                    style="@style/Header"/>
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/text_positif_sakit"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        style="@style/Header1Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_positif" />
+
+                    <TextView
+                        android:id="@+id/text_indo_positif"
+                        style="@style/Header2Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FF0000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    style="@style/Header2"
-                    android:textColor="#FF0000"/>
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Header1Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_sembuh" />
+
+                    <TextView
+                        android:id="@+id/text_indo_sembuh"
+                        style="@style/Header2Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#008000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Header1Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_meninggal" />
+
+                    <TextView
+                        android:id="@+id/text_indo_meninggal"
+                        style="@style/Header2Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <Button
+                android:id="@+id/button_kasus_provinsi"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/string_sembuh"
-                    style="@style/Header"/>
-
-                <TextView
-                    android:id="@+id/text_sembuh"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Header2"
-                    android:textColor="#008000"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/string_meninggal"
-                    style="@style/Header"/>
-
-                <TextView
-                    android:id="@+id/text_meninggal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Header2"/>
-
-            </LinearLayout>
+                android:background="@drawable/rounded_button_dark"
+                android:text="@string/string_kasus_per_provinsi"
+                style="@style/Header1White"
+                android:textAllCaps="false" />
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/button_kasus_provinsi"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/string_kasus_per_provinsi"
-            android:textColor="#FFFFFF"
-            android:textAllCaps="false"
-            android:background="@drawable/rounded_button_dark"/>
+            android:orientation="vertical"
+            android:padding="16dp"
+            tools:context=".ui.pandemi.PandemiActivity">
+
+            <TextView
+                style="@style/Header1Black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/string_covid19_dunia" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Header1Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_positif" />
+
+                    <TextView
+                        android:id="@+id/text_dunia_positif"
+                        style="@style/Header2Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FF0000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Header1Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_sembuh" />
+
+                    <TextView
+                        android:id="@+id/text_dunia_sembuh"
+                        style="@style/Header2Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#008000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Header1Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/string_meninggal" />
+
+                    <TextView
+                        android:id="@+id/text_dunia_meninggal"
+                        style="@style/Header2Black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/button_kasus_negara"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button_dark"
+                android:text="@string/string_kasus_per_negara"
+                style="@style/Header1White"
+                android:textAllCaps="false" />
+
+
+
+        </LinearLayout>
 
         <Button
             android:id="@+id/button_myth_buster"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:layout_marginVertical="10dp"
+            android:background="@drawable/rounded_button_dark"
             android:text="@string/string_myth_buster"
-            android:textColor="#FFFFFF"
-            android:textAllCaps="false"
-            android:background="@drawable/rounded_button_dark"/>
+            style="@style/Header1White"
+            android:textAllCaps="false" />
 
     </LinearLayout>
 
