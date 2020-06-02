@@ -24,6 +24,10 @@
             android:label="@string/title_kasus_per_provinsi"
             android:parentActivityName=".ui.pandemi.PandemiActivity" />
         <activity
+            android:name=".ui.pandemi.KasusPerNegaraActivity"
+            android:label="@string/title_kasus_per_negara"
+            android:parentActivityName=".ui.pandemi.PandemiActivity" />
+        <activity
             android:name=".ui.pandemi.PandemiActivity"
             android:label="@string/title_pandemi"
             android:parentActivityName=".MainActivity" />

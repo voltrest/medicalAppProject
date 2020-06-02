@@ -1,14 +1,14 @@
 package com.example.medicalapp.ui.pandemi;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TableLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,28 +22,28 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class KasusPerProvinsiActivity extends AppCompatActivity {
+public class KasusPerNegaraActivity extends AppCompatActivity {
     //UI Elements
     private TableLayout mTableLayout;
     private ProgressBar mProgressBar;
 
     //Variables
-    private static final String TAG = "Kasus Per Provinsi Act";
+    private static final String TAG = "Kasus Per Negara Act";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kasus_per_provinsi);
+        setContentView(R.layout.activity_kasus_per_negara);
 
-        mTableLayout = findViewById(R.id.table_kasus_per_provinsi);
+        mTableLayout = findViewById(R.id.table_kasus_per_negara);
         mProgressBar = findViewById(R.id.progress_bar_indonesia);
 
-        getPerProvinsiData();
+        getPerNegaraData();
     }
 
-    private void getPerProvinsiData(){
+    private void getPerNegaraData(){
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://api.kawalcorona.com/indonesia/provinsi/";
+        String url = "https://api.kawalcorona.com/";
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -68,27 +68,25 @@ public class KasusPerProvinsiActivity extends AppCompatActivity {
 
     private void setContent(JSONArray jsonArray){
         try{
-            View tableHeader = getLayoutInflater().inflate(R.layout.table_provinsi_header, null, false);
+            View tableHeader = getLayoutInflater().inflate(R.layout.table_negara_header, null, false);
             mTableLayout.addView(tableHeader);
             for (int i = 0; i < jsonArray.length(); i ++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i).getJSONObject("attributes");
 
                 View tableRow = getLayoutInflater().inflate(R.layout.table_provinsi_row, null, false);
-                TextView provinsi = tableRow.findViewById(R.id.text_provinsi);
+                TextView negara = tableRow.findViewById(R.id.text_provinsi);
                 TextView positif = tableRow.findViewById(R.id.text_provinsi_positif);
                 TextView sembuh = tableRow.findViewById(R.id.text_provinsi_sembuh);
                 TextView meninggal = tableRow.findViewById(R.id.text_provinsi_meninggal);
 
-                provinsi.setText(jsonObject.getString("Provinsi"));
-                positif.setText(jsonObject.getString("Kasus_Posi"));
-                sembuh.setText(jsonObject.getString("Kasus_Semb"));
-                meninggal.setText(jsonObject.getString("Kasus_Meni"));
+                negara.setText(jsonObject.getString("Country_Region"));
+                positif.setText(jsonObject.getString("Confirmed"));
+                sembuh.setText(jsonObject.getString("Recovered"));
+                meninggal.setText(jsonObject.getString("Deaths"));
                 if (i % 2 == 1){
                     tableRow.setBackgroundColor(ContextCompat.getColor(this, R.color.white_blue));
                 }
                 mTableLayout.addView(tableRow);
-
-                Log.d(TAG, "setContent: ");
             }
         } catch (JSONException e){
             e.printStackTrace();

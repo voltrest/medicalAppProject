@@ -1,4 +1,7 @@
 <resources>
+    //News
+    <string name="news_api_key">c9db04fc36734c84bb6ea4c978db44a9</string>
+    //Maps
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyBedEZKGslmnGYsUOKHg9P933TD3XoFiZI</string>
     <string name="google_places_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC-v47ri2OIOiEJAKONs4WYvoSTy6NOvqQ</string>
 </resources>

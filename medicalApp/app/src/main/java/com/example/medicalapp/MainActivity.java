@@ -43,9 +43,9 @@ public class MainActivity extends AppCompatActivity {
         mNavigationView = findViewById(R.id.space);
 
         mNavigationView.initWithSaveInstanceState(savedInstanceState);
-        mNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_library_books_black_24dp));
-        mNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_face_black_24dp));
-        mNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_home_black_24dp));
+        mNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_news));
+        mNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_maskmen));
+        mNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_hospital));
         mNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_more_vert_black_24dp));
 
         mNavigationView.setSpaceOnClickListener(new SpaceOnClickListener() {

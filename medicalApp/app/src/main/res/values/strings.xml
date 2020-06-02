@@ -5,6 +5,7 @@
     <string name="title_rumah_sakit">Rumah Sakit</string>
     <string name="title_pandemi">COVID-19</string>
     <string name="title_kasus_per_provinsi">Kasus per Provinsi</string>
+    <string name="title_kasus_per_negara">Kasus per Negara</string>
 
     //Illness Detail Strings
     <string name="string_ringkasan">Ringkasan</string>
@@ -31,6 +32,7 @@
     <string name="string_kasus_per_negara">Kasus per Negara</string>
     <string name="string_kasus_per_provinsi">Kasus per Provinsi</string>
     <string name="string_myth_buster">Myth Buster</string>
+    <string name="string_negara">Negara</string>
     <string name="string_provinsi">Provinsi</string>
     <string name="string_positif">Positif</string>
     <string name="string_sembuh">Sembuh</string>

@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -77,7 +76,7 @@ public class DaftarPenyakitFragment extends Fragment implements DaftarPenyakitAd
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        mProgressBar = root.findViewById(R.id.progress_bar);
+        mProgressBar = root.findViewById(R.id.progress_bar_indonesia);
 
         getData("http://192.168.1.14/get_daftar_penyakit.php");
         return root;

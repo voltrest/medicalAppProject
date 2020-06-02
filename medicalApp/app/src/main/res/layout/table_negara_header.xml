@@ -3,14 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/black">
 
     <TextView
-        android:id="@+id/text_provinsi"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="38"
-        style="@style/Paragraph2Black"/>
+        android:text="@string/string_negara"
+        style="@style/Paragraph2White"/>
 
     <LinearLayout
         android:layout_width="1dp"
@@ -18,12 +19,12 @@
         android:background="#E5E5E5"/>
 
     <TextView
-        android:id="@+id/text_provinsi_positif"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="20"
+        android:text="@string/string_positif"
         android:textAlignment="center"
-        style="@style/Header1Black"/>
+        style="@style/Paragraph2White"/>
 
     <LinearLayout
         android:layout_width="1dp"
@@ -31,12 +32,12 @@
         android:background="#E5E5E5"/>
 
     <TextView
-        android:id="@+id/text_provinsi_sembuh"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="20"
+        android:text="@string/string_sembuh"
         android:textAlignment="center"
-        style="@style/Header1Black"/>
+        style="@style/Paragraph2White"/>
 
     <LinearLayout
         android:layout_width="1dp"
@@ -44,10 +45,11 @@
         android:background="#E5E5E5"/>
 
     <TextView
-        android:id="@+id/text_provinsi_meninggal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="22"
+        android:text="@string/string_meninggal"
         android:textAlignment="center"
-        style="@style/Header1Black"/>
+        style="@style/Paragraph2White"/>
+
 </TableRow>

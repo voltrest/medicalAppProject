@@ -97,7 +97,7 @@
         app:inactive_item_color="@color/black"
         app:active_centre_button_icon_color="@color/white"
         app:space_background_color="@color/white"
-        app:centre_button_icon="@drawable/ic_new_releases_black_24dp"
+        app:centre_button_icon="@drawable/ic_sos"
         app:space_item_icon_size="30dp"
         app:inactive_centre_button_icon_color="@color/white"
         app:active_centre_button_background_color="#F44336"

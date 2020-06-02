@@ -31,8 +31,10 @@ public class PandemiActivity extends AppCompatActivity {
     private TextView mIndoMeninggalText;
     private TextView mIndoSembuhText;
     private Button mKasusProvinsiButton;
+    private Button mKasusNegaraButton;
     private Button mMythBusterButton;
-    private ProgressBar mProgressBar;
+    private ProgressBar mIndonesiaProgressBar;
+    private ProgressBar mDuniaProgressBar;
 
     //Variables
     private static final String TAG = "Pandemi Activity";
@@ -59,6 +61,15 @@ public class PandemiActivity extends AppCompatActivity {
             }
         });
 
+        mKasusNegaraButton = findViewById(R.id.button_kasus_negara);
+        mKasusNegaraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PandemiActivity.this, KasusPerNegaraActivity.class);
+                startActivity(intent);
+            }
+        });
+
         mMythBusterButton = findViewById(R.id.button_myth_buster);
         mMythBusterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +79,8 @@ public class PandemiActivity extends AppCompatActivity {
             }
         });
 
-        mProgressBar = findViewById(R.id.progress_bar);
+        mIndonesiaProgressBar = findViewById(R.id.progress_bar_indonesia);
+        mDuniaProgressBar = findViewById(R.id.progress_bar_dunia);
 
         getDuniaData();
         getIndoData();
@@ -114,8 +126,6 @@ public class PandemiActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //progress bar disappears
-//                mProgressBar.setVisibility(View.GONE);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     mDuniaPositifText.setText(jsonObject.getString("value"));
@@ -139,8 +149,6 @@ public class PandemiActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //progress bar disappears
-//                mProgressBar.setVisibility(View.GONE);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     mDuniaSembuhText.setText(jsonObject.getString("value"));
@@ -165,7 +173,7 @@ public class PandemiActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 //progress bar disappears
-//                mProgressBar.setVisibility(View.GONE);
+                mDuniaProgressBar.setVisibility(View.GONE);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     mDuniaMeninggalText.setText(jsonObject.getString("value"));
@@ -189,8 +197,7 @@ public class PandemiActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                //progress bar disappears
-                mProgressBar.setVisibility(View.GONE);
+                mIndonesiaProgressBar.setVisibility(View.GONE);
                 try {
                     JSONArray jsonArray = new JSONArray(response);
                     JSONObject jsonObject = new JSONObject();

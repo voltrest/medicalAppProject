@@ -14,7 +14,6 @@ import android.widget.ProgressBar;
 import com.example.medicalapp.R;
 import com.example.medicalapp.adapters.MythBusterAdapter;
 import com.example.medicalapp.models.Myth;
-import com.example.medicalapp.models.Penyakit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,7 +56,7 @@ public class MythBusterActivity extends AppCompatActivity {
         mRecyclerView = findViewById(R.id.recycler_myth);
         initRecyclerView();
 
-        mProgressBar = findViewById(R.id.progress_bar);
+        mProgressBar = findViewById(R.id.progress_bar_indonesia);
 
         getData("http://192.168.1.14/get_myth_buster.php");
     }
