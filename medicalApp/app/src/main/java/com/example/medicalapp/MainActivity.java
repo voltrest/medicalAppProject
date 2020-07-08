@@ -1,13 +1,11 @@
 package com.example.medicalapp;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.example.medicalapp.ui.daftarPenyakit.DaftarPenyakitFragment;
+import com.example.medicalapp.ui.illnessList.IllnessListFragment;
 import com.example.medicalapp.ui.home.HomeFragment;
-import com.example.medicalapp.ui.rumahSakit.RumahSakitFragment;
+import com.example.medicalapp.ui.hospital.HospitalFragment;
 import com.luseen.spacenavigation.SpaceItem;
 import com.luseen.spacenavigation.SpaceNavigationView;
 import com.luseen.spacenavigation.SpaceOnClickListener;
@@ -40,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 ///////
         initFragments();
         setFragment(mHomeFragment);
-        mNavigationView = findViewById(R.id.space);
+        mNavigationView = findViewById(R.id.space_navbar);
 
         mNavigationView.initWithSaveInstanceState(savedInstanceState);
         mNavigationView.addSpaceItem(new SpaceItem("", R.drawable.ic_news));
@@ -79,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void initFragments(){
         mHomeFragment = new HomeFragment();
-        mDaftarPenyakitFragment = new DaftarPenyakitFragment();
-        mRumahSakitFragment = new RumahSakitFragment();
+        mDaftarPenyakitFragment = new IllnessListFragment();
+        mRumahSakitFragment = new HospitalFragment();
     }
 
     private void setFragment(Fragment fragment){

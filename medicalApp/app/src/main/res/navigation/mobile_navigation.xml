@@ -14,13 +14,13 @@
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.medicalapp.ui.daftarPenyakit.DaftarPenyakitFragment"
+        android:name="com.example.medicalapp.ui.daftarIllness.DaftarPenyakitFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_daftar_penyakit" />
+        tools:layout="@layout/fragment_illness_list" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.medicalapp.ui.rumahSakit.RumahSakitFragment"
+        android:name="com.example.medicalapp.ui.hospital.HospitalFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_rumah_sakit" />
+        tools:layout="@layout/fragment_hospital" />
 </navigation>

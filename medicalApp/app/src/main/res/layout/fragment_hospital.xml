@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true" >
+<!--    <fragment-->
+<!--        android:id="@+id/map"-->
+<!--        android:name="com.google.android.gms.maps.SupportMapFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:context=".MapsActivity" />-->
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_rumah_sakit"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FAFAFA"
+        android:scrollbars="vertical" />
+
+    <Button
+        android:id="@+id/switch_view_button"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@id/search_button"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="10dp"
+        android:textAllCaps="false"
+        style="@style/ParagraphWhite"
+        android:background="@drawable/rounded_button_filled"/>
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="80dp"
+        android:textAllCaps="false"
+        android:text="@string/button_cari_rs"
+        style="@style/ParagraphWhite"
+        android:background="@drawable/rounded_button_filled"/>
+</RelativeLayout>

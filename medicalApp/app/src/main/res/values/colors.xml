@@ -12,19 +12,21 @@
     <color name="colorPrimaryDark">#03A9F4</color>
     <color name="colorAccent">#03A9F4</color>
     <color name="white">#FFFFFF</color>
-    <color name="black">#464646</color>
-    <color name="blue_light">#A7E3FF</color>
-    <color name="white_blue">#CAEBFA</color>
+    <color name="darkGrey">#464646</color>
+    <color name="lightGrey">#999999</color>
+    <color name="lightBlue">#A7E3FF</color>\
+    <color name="whiteBlue">#CAEBFA</color>
+    <color name="lightWhiteBlue">#F0F9FF</color>
 
     <color name="green">#008000</color>
-    <color name="sea_green">#3CB371</color>
-    <color name="steel_blue">#4682B4</color>
-    <color name="royal_blue">#4169E1</color>
-    <color name="slate_blue">#6A5ACD</color>
-    <color name="dark_orchid">#9932CC</color>
-    <color name="deep_pink">#FF1493</color>
+    <color name="seaGreen">#3CB371</color>
+    <color name="steelBlue">#4682B4</color>
+    <color name="royalBlue">#4169E1</color>
+    <color name="slateBlue">#6A5ACD</color>
+    <color name="darkOrchid">#9932CC</color>
+    <color name="deepPink">#FF1493</color>
     <color name="peru">#CD853F</color>
     <color name="crimson">#DC143C</color>
-    <color name="dark_orange">#FF8C00</color>
+    <color name="darkOrange">#FF8C00</color>
     <color name="gold">#FFD700</color>
 </resources>

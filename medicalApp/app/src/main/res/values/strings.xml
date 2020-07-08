@@ -1,11 +1,17 @@
 <resources>
     <string name="app_name">medicalApp</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">Berita</string>
     <string name="title_penyakit">Daftar Penyakit</string>
     <string name="title_rumah_sakit">Rumah Sakit</string>
     <string name="title_pandemi">COVID-19</string>
     <string name="title_kasus_per_provinsi">Kasus per Provinsi</string>
     <string name="title_kasus_per_negara">Kasus per Negara</string>
+
+    //Navbar
+    <string name="string_berita">Berita</string>
+    <string name="string_penyakit">"Penyakit</string>
+    <string name="string_rumah_sakit">Rumah Sakit</string>
+    <string name="string_lainnya">Lainnya</string>
 
     //Illness Detail Strings
     <string name="string_ringkasan">Ringkasan</string>
@@ -16,8 +22,9 @@
     <string name="string_spesialis">Spesialis</string>
 
     //Map Strings
-    <string name="button_view_list">View list</string>
-    <string name="button_view_map">View map</string>
+    <string name="button_cari_rs">Cari Rumah Sakit</string>
+    <string name="button_tampilan_daftar">Tampilan Daftar</string>
+    <string name="button_tampilan_peta">Tampilan Peta</string>
 
     //Hospital Detail Strings
     <string name="string_rating">Rating</string>

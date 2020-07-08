@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.ArticleDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/article_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/Header2Black"/>
+
+        <ImageView
+            android:id="@+id/image_article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"/>
+
+        <TextView
+            android:id="@+id/body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20sp"
+            style="@style/ParagraphBlack"/>
+
+        <TextView
+            android:id="@+id/writer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ParagraphBlack"/>
+
+        <TextView
+            android:id="@+id/date_written"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ParagraphBlack"/>
+
+        <TextView
+            android:id="@+id/date_copied"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ParagraphBlack"/>
+
+    </LinearLayout>
+
+</ScrollView>

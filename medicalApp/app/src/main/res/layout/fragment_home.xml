@@ -1,32 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/text_home"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
 
     <Button
-        android:id="@+id/button_pandemi"
-        android:layout_width="wrap_content"
+        android:id="@+id/button_pandemix"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="COVID-19"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:padding="10dp"
+        android:background="@drawable/rounded_button_translucent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/button_pandemic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@drawable/rounded_button_translucent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="COVID-19"
+            style="@style/Paragraph2Black"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="See the latest information on coronavirus"
+            style="@style/ParagraphBlack"/>
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:layout_marginVertical="20dp">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/image_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            app:tabBackground="@drawable/indicator_selector"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_articles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:scrollbars="vertical" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

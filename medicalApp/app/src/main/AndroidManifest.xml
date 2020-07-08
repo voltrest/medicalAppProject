@@ -18,20 +18,21 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.pandemi.MythBusterActivity"></activity>
+        <activity android:name=".ui.home.ArticleDetailActivity"></activity>
+        <activity android:name=".ui.pandemic.MythBusterActivity" />
         <activity
-            android:name=".ui.pandemi.KasusPerProvinsiActivity"
+            android:name=".ui.pandemic.CasesPerProvinceActivity"
             android:label="@string/title_kasus_per_provinsi"
-            android:parentActivityName=".ui.pandemi.PandemiActivity" />
+            android:parentActivityName=".ui.pandemic.PandemicActivity" />
         <activity
-            android:name=".ui.pandemi.KasusPerNegaraActivity"
+            android:name=".ui.pandemic.CasesPerCountryActivity"
             android:label="@string/title_kasus_per_negara"
-            android:parentActivityName=".ui.pandemi.PandemiActivity" />
+            android:parentActivityName=".ui.pandemic.PandemicActivity" />
         <activity
-            android:name=".ui.pandemi.PandemiActivity"
+            android:name=".ui.pandemic.PandemicActivity"
             android:label="@string/title_pandemi"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ui.rumahSakit.DetailRumahSakitActivity" />
+        <activity android:name=".ui.hospital.HospitalDetailsActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -50,7 +51,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.daftarPenyakit.detailPenyakit.DetailPenyakitActivity" />
+        <activity android:name=".ui.illnessList.illnessDetails.IllnessDetailActivity" />
     </application>
 
 </manifest>
